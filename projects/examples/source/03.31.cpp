@@ -40,7 +40,7 @@ int main()
 {
     [[maybe_unused]] auto entity_1 = make_entity_v1();
 	
-	[[maybe_unused]] auto entity_2 = make_entity_v2();
+	[[maybe_unused]] auto entity_2 = make_entity_v2();    // "=" like constructor call
 }
 
 ////////////////////////////////////////////////////////////////////
