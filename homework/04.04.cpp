@@ -38,7 +38,7 @@ public :
 	void increase_capacity()
 	{
 		m_capacity *= 2;
-		int * new_array = new int[m_capacity]{};
+		T * new_array = new T[m_capacity]{};
 
 		std::ranges::copy(new_array, new_array + m_size, m_array);
 
@@ -47,7 +47,7 @@ public :
 
 //  --------------------------------------------------------------------------------
 
-	void push_back(const int value)
+	void push_back(const T value)
 	{
 		if (m_capacity <= m_size)
 		{
@@ -85,11 +85,11 @@ public :
 
 //  --------------------------------------------------------------------------------
 
-	Vector(std::initializer_list < int > list) : m_size(std::size(list)), m_capacity(m_size)
+	Vector(std::initializer_list < T > list) : m_size(std::size(list)), m_capacity(m_size)
 	{
 		std::print("Vector:: Vector (2)\n");
 
-		m_array = m_size ? new int[m_size]{} : nullptr;
+		m_array = m_size ? new T[m_size]{} : nullptr;
 
 		std::ranges::copy(list, m_array);
 	}
@@ -100,7 +100,7 @@ public :
 	{
 		std::print("Vector:: Vector (3)\n");
 
-		m_array = m_size ? new int[m_size]{} : nullptr;
+		m_array = m_size ? new T[m_size]{} : nullptr;
 
 		std::ranges::copy(other.m_array, other.m_array + other.m_size, m_array);
 	}
@@ -205,12 +205,12 @@ public :
 
 private :
 
-	int * m_array = nullptr;
+	T * m_array = nullptr;
 
 	std::size_t m_size = 0;
 
 	std::size_t m_capacity = 0;
-};
+}
 
 ////////////////////////////////////////////////////////////////////////////////////
 
