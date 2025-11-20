@@ -14,21 +14,21 @@ class Vector
 {
 public :
 
-	Vector() : m_array(nullptr), m_size(0)
+	Vector (): m_array(nullptr), m_size(0)
 	{
 		std::print("Vector:: Vector (1)\n");
 	}
 
 //  --------------------------------------------------------------------------------
 
-	auto capacity()
+	auto const capacity() -> std::size_t
 	{
 		return m_capacity;
 	}
 
 //  --------------------------------------------------------------------------------
 
-	auto size()
+	auto const size() -> std::size_t
 	{
 		return m_size;
 	}
@@ -38,7 +38,7 @@ public :
 	void increase_capacity()
 	{
 		m_capacity *= 2;
-		T * new_array = new T[m_capacity]{};
+		int * new_array = new int[m_capacity]{};
 
 		std::ranges::copy(new_array, new_array + m_size, m_array);
 
@@ -47,7 +47,7 @@ public :
 
 //  --------------------------------------------------------------------------------
 
-	void push_back(const T value)
+	void push_back(const int value)
 	{
 		if (m_capacity <= m_size)
 		{
@@ -71,7 +71,7 @@ public :
 
 //  --------------------------------------------------------------------------------
 
-	bool is_empty()
+	auto const is_empty() -> bool
 	{
 		bool flag = false;
 
@@ -85,7 +85,7 @@ public :
 
 //  --------------------------------------------------------------------------------
 
-	Vector(std::initializer_list < T > list) : m_size(std::size(list)), m_capacity(m_size)
+	Vector (std::initializer_list < T > list) : m_size(std::size(list)), m_capacity(m_size)
 	{
 		std::print("Vector:: Vector (2)\n");
 
@@ -96,7 +96,7 @@ public :
 
 //  --------------------------------------------------------------------------------
 
-	Vector(Vector const & other) : m_size(other.m_size), m_capacity(m_size)
+	Vector (Vector <T> const & other) : m_size(other.m_size), m_capacity(m_size)
 	{
 		std::print("Vector:: Vector (3)\n");
 
@@ -107,7 +107,7 @@ public :
 
 //  --------------------------------------------------------------------------------
 
-	Vector(Vector && other)
+	Vector (Vector <T> && other)
 	:
 		m_array(std::exchange(other.m_array, nullptr)),
 
@@ -185,7 +185,7 @@ public :
 
 //  --------------------------------------------------------------------------------
 
-	auto & operator=(Vector other)
+	auto & operator=(Vector <T> other)
 	{
 		std::print("Vector::operator= (4)\n");
 
@@ -196,7 +196,7 @@ public :
 
 //  --------------------------------------------------------------------------------
 
-	void swap(Vector & other)
+	void swap(Vector <T> & other)
 	{
 		std::swap(m_array, other.m_array);
 
@@ -210,11 +210,12 @@ private :
 	std::size_t m_size = 0;
 
 	std::size_t m_capacity = 0;
-}
+};
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-void swap(Vector & lhs, Vector & rhs)
+template <typename T1, typename T2>
+void swap ( Vector <T1> & lhs, Vector <T2> & rhs)
 {
 	lhs.swap(rhs);
 }
@@ -223,13 +224,13 @@ void swap(Vector & lhs, Vector & rhs)
 
 int main()
 {
-	Vector vector_1;
+	Vector <int> vector_1;
 
-	Vector vector_2 = { 1, 2, 3, 4, 5 };
+	Vector <int> vector_2 = { 1, 2, 3, 4, 5 };
 
-	Vector vector_3 = vector_2;
+	Vector <int> vector_3 = vector_2;
 
-	Vector vector_4 = std::move(vector_3);
+	Vector <int> vector_4 = std::move(vector_3);
 
 //  --------------------------------------
 
@@ -260,5 +261,3 @@ int main()
 	assert(vector_2.is_empty());
 
 }
-
-////////////////////////////////////////////////////////////////////////////////////

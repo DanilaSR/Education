@@ -16,7 +16,9 @@ auto reduce_v4(auto ... xs) { return (xs + ... + 0 ); } // support : cppinsights
 
 auto transform_reduce(auto ... xs)
 {
-	return (... + (xs * xs)); // support : cppinsights.io
+
+
+	return (...  < xs ); 
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
